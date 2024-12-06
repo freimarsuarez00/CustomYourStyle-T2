@@ -1,23 +1,23 @@
-﻿
-using CustomYourStyle.Entities;
+﻿using CustomYourStyle.Entities;
 using CustomYourStyle.Entities.Constants;
 using CustomYourStyle.Handler;
 using CustomYourStyle.Repository;
 
 Console.WriteLine("Custom Your Style");
 
-
 PedidoRepository pedidoRepository = new PedidoRepository();
-PedidoHandler _Pedido = PedidoHandler.Instancia(pedidoRepository);
+PedidoHandler _Pedido = PedidoHandler.Instancia(pedidoRepository); //Singleton
 
 
-Categoria categoria = new Categoria() { 
-    IdCategoria=0,
-    Nombre="Ropa",
-    Descripcion="Ropa"
+Categoria categoria = new Categoria()
+{
+    IdCategoria = 0,
+    Nombre = "Ropa",
+    Descripcion = "Ropa"
 };
 
-var builder = new ProductoBuilder(categoria);
+
+var builder = new ProductoBuilder(categoria); //Builder - Factory
 var producto = builder.SetTallaRopa("S")
                       .SetColorRopa("Negro")
                       .Build();
@@ -30,8 +30,8 @@ var pedido = new Pedido
     Total = 2000,
     Cliente = new Cliente()
     {
-        Nombre="Jose", 
-        Apellido="Carrillo"
+        Nombre = "Jose",
+        Apellido = "Carrillo"
     },
     Productos = new List<Producto> { producto }
 };
@@ -47,25 +47,25 @@ var jogger = new Ropa
     Nombre = "Jogger",
     Categoria = new()
     {
-        IdCategoria=0,
-        Nombre = "Ropa", 
+        IdCategoria = 0,
+        Nombre = "Ropa",
         Descripcion = "Ropa"
-        
+
     },
     Color = "Rojo",
     Tela = new Tela()
     {
-        IdTela=1,
-        Nombre="Algodon", 
-        MaterialPrincipal="Algodon",
-        PorcentajeUso=90
+        IdTela = 1,
+        Nombre = "Algodon",
+        MaterialPrincipal = "Algodon",
+        PorcentajeUso = 90
     },
     Talla = "S",
     Marca = new Marca()
     {
-        IdMarca=1,
-        Nombre="CruceHose",
-        Pais="Colombia"
+        IdMarca = 1,
+        Nombre = "CruceHose",
+        Pais = "Colombia"
     }
 };
 
@@ -84,8 +84,7 @@ var pedidoOriginal = new Pedido
 _Pedido.AddPedido(pedidoOriginal);
 
 
-
-var productoClonado = jogger.Clonar();
+var productoClonado = jogger.Clonar(); //Prototype
 
 var pedidoClonado = new Pedido
 {
